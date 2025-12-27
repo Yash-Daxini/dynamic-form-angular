@@ -1,0 +1,22 @@
+<div [formGroup]="formGroup" [class]="field.containerClass">
+      <label [for]="field.key" *ngIf="field.label">
+        {{ field.label }}
+        <span *ngIf="field.required" class="required-asterisk">*</span>
+      </label>
+      
+      <p-dropdown
+        [id]="field.key"
+        [formControlName]="field.key"
+        [options]="field.options || []"
+        [placeholder]="field.placeholder || 'Select an option'"
+        optionLabel="label"
+        optionValue="value"
+        [styleClass]="field.styleClass"
+        (onChange)="onFieldChange()"
+        [class]="'w-full'"
+      ></p-dropdown>
+      
+      <small class="p-error" *ngFor="let error of errors">
+        {{ error }}
+      </small>
+    </div>

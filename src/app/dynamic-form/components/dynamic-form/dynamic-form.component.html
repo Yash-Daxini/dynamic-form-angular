@@ -1,0 +1,27 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="dynamic-form">
+  <div class="form-grid">
+    <app-dynamic-field
+      *ngFor="let field of fields"
+      [field]="field"
+      [formGroup]="formGroup"
+    ></app-dynamic-field>
+  </div>
+  
+  <div class="form-actions">
+    <p-button
+      type="submit"
+      [label]="submitButtonText"
+      icon="pi pi-check"
+      [disabled]="!formGroup.valid"
+    ></p-button>
+    
+    <p-button
+      *ngIf="showResetButton"
+      type="button"
+      [label]="resetButtonText"
+      icon="pi pi-times"
+      severity="secondary"
+      (onClick)="onReset()"
+    ></p-button>
+  </div>
+</form>

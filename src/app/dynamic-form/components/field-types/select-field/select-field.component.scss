@@ -1,0 +1,20 @@
+.required-asterisk {
+      color: #e24c4c;
+      margin-left: 2px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #495057;
+    }
+    
+    .p-error {
+      display: block;
+      margin-top: 0.25rem;
+    }
+    
+    :host ::ng-deep .p-dropdown {
+      width: 100%;
+    }

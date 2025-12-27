@@ -1,0 +1,22 @@
+<div [formGroup]="formGroup" [class]="field.containerClass">
+  <label [for]="field.key" *ngIf="field.label">
+    {{ field.label }}
+    <span *ngIf="field.required" class="required-asterisk">*</span>
+  </label>
+
+  <input
+    pInputText
+    [id]="field.key"
+    [formControlName]="field.key"
+    [placeholder]="field.placeholder || ''"
+    [type]="field.inputType || 'text'"
+    [readonly]="field.readonly"
+    [class]="field.styleClass"
+    (change)="onFieldChange()"
+    class="w-full"
+  />
+
+  <small class="p-error" *ngFor="let error of errors">
+    {{ error }}
+  </small>
+</div>

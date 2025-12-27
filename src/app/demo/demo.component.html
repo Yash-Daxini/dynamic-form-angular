@@ -1,0 +1,27 @@
+<div class="demo-container">
+  <div class="header">
+    <h1>Dynamic Forms POC</h1>
+    <p>Angular 16 + Reactive Forms + PrimeNG</p>
+  </div>
+
+  <p-card header="User Registration Form" [style]="{ 'margin-bottom': '2rem' }">
+    <app-dynamic-form
+      [fields]="formFields"
+      [initialValues]="initialValues"
+      [submitButtonText]="'Register'"
+      [resetButtonText]="'Clear Form'"
+      [showResetButton]="true"
+      (formSubmit)="onFormSubmit($event)"
+      (formReset)="onFormReset()"
+      (valueChanges)="onValueChange($event)"
+    ></app-dynamic-form>
+  </p-card>
+
+  <p-card
+    *ngIf="submittedData"
+    header="Submitted Data"
+    [style]="{ 'background-color': '#f8f9fa' }"
+  >
+    <pre>{{ submittedData | json }}</pre>
+  </p-card>
+</div>

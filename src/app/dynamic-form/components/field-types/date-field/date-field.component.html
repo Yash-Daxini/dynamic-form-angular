@@ -1,0 +1,22 @@
+<div [formGroup]="formGroup" [class]="field.containerClass">
+      <label [for]="field.key" *ngIf="field.label">
+        {{ field.label }}
+        <span *ngIf="field.required" class="required-asterisk">*</span>
+      </label>
+      
+      <p-calendar
+        [inputId]="field.key"
+        [formControlName]="field.key"
+        [placeholder]="field.placeholder || 'Select a date'"
+        [styleClass]="field.styleClass"
+        [readonlyInput]="field.readonly"
+        (onSelect)="onFieldChange()"
+        dateFormat="yy-mm-dd"
+        [showIcon]="true"
+        class="w-full"
+      ></p-calendar>
+      
+      <small class="p-error" *ngFor="let error of errors">
+        {{ error }}
+      </small>
+    </div>
