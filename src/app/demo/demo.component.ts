@@ -74,6 +74,24 @@ export class DemoComponent {
       validationMessages: {
         required: 'Date of birth is required'
       },
+      containerClass: 'col-12 md:col-6',
+      onChange: (value, formGroup) => {
+        const age = this.calculateAge(value);
+        formGroup.patchValue({ age });
+      },
+    },
+    {
+      type: FieldType.NUMBER,
+      key: 'age',
+      label: 'Age',
+      placeholder: 'Select your age',
+      required: true,
+      readonly: true,
+      disabled: true,
+      validators: [Validators.required],
+      validationMessages: {
+        required: 'Age is required'
+      },
       containerClass: 'col-12 md:col-6'
     },
     {
@@ -98,7 +116,24 @@ export class DemoComponent {
       onChange: (value, formGroup) => {
         console.log('Country changed to:', value);
       }
-    }
+    },
+    {
+      type: FieldType.INPUT,
+      key: 'pan',
+      label: 'PAN Card Number',
+      placeholder: 'Enter your PAN Card Number',
+      required: false,
+      validators: [Validators.required,Validators.pattern(/[A-Z]{5}[0-9]{4}[A-Z]{1}/)],
+      validationMessages: {
+        required: 'PAN Card Number is required',
+        pattern: 'Invalid PAN Card Number format'
+      },
+      containerClass: 'col-12 md:col-6',
+      hideExpression: (model) => {
+        const country = model['country'];
+        return country !== 'in';
+      }
+    },
   ];
 
   initialValues = {
@@ -117,5 +152,12 @@ export class DemoComponent {
 
   onValueChange(values: any): void {
     console.log('Form Values Changed:', values);
+  }
+
+  calculateAge(dateOfBirth: string): number {
+    const birthDate = new Date(dateOfBirth);
+    const ageDiff = Date.now() - birthDate.getTime();
+    const ageDate = new Date(ageDiff);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
 }
