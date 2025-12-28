@@ -19,10 +19,7 @@ export class FieldRegistryService {
     this.fieldTypes.set(FieldType.EMAIL, InputFieldComponent);
     this.fieldTypes.set(FieldType.PASSWORD, InputFieldComponent);
     this.fieldTypes.set(FieldType.NUMBER, InputFieldComponent);
-    // this.fieldTypes.set(FieldType.TEXTAREA, TextareaFieldComponent);
     this.fieldTypes.set(FieldType.SELECT, SelectFieldComponent);
-    // this.fieldTypes.set(FieldType.CHECKBOX, CheckboxFieldComponent);
-    // this.fieldTypes.set(FieldType.RADIO, RadioFieldComponent);
     this.fieldTypes.set(FieldType.DATE, DateFieldComponent);
   }
 

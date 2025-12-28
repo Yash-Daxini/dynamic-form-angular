@@ -98,57 +98,11 @@ export class DemoComponent {
       onChange: (value, formGroup) => {
         console.log('Country changed to:', value);
       }
-    },
-    // {
-    //   type: FieldType.RADIO,
-    //   key: 'gender',
-    //   label: 'Gender',
-    //   required: true,
-    //   validators: [Validators.required],
-    //   validationMessages: {
-    //     required: 'Gender is required'
-    //   },
-    //   options: [
-    //     { label: 'Male', value: 'male' },
-    //     { label: 'Female', value: 'female' },
-    //     { label: 'Other', value: 'other' }
-    //   ],
-    //   containerClass: 'col-12 md:col-6'
-    // },
-    // {
-    //   type: FieldType.TEXTAREA,
-    //   key: 'address',
-    //   label: 'Address',
-    //   placeholder: 'Enter your address',
-    //   rows: 3,
-    //   validators: [Validators.maxLength(200)],
-    //   validationMessages: {
-    //     maxlength: 'Address cannot exceed 200 characters'
-    //   },
-    //   containerClass: 'col-12'
-    // },
-    // {
-    //   type: FieldType.CHECKBOX,
-    //   key: 'newsletter',
-    //   label: 'Subscribe to newsletter',
-    //   value: false,
-    //   containerClass: 'col-12 md:col-6'
-    // },
-    // {
-    //   type: FieldType.CHECKBOX,
-    //   key: 'terms',
-    //   label: 'I agree to the terms and conditions',
-    //   required: true,
-    //   validators: [Validators.requiredTrue],
-    //   validationMessages: {
-    //     required: 'You must agree to the terms and conditions'
-    //   },
-    //   containerClass: 'col-12 md:col-6'
-    // }
+    }
   ];
 
   initialValues = {
-    newsletter: true
+    country: 'in'
   };
 
   onFormSubmit(formData: any): void {

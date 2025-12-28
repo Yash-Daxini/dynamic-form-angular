@@ -16,17 +16,8 @@ import { ValidationService } from '../../services/validation.service';
 
 @Component({
   selector: 'app-dynamic-field',
-  template: `
-    <div *ngIf="!isHidden" [class]="field.className">
-      <ng-template #fieldContainer></ng-template>
-    </div>
-  `,
-  styles: [`
-    :host {
-      display: block;
-      margin-bottom: 1.5rem;
-    }
-  `]
+  templateUrl: './dynamic-field.component.html',
+  styleUrls: ['./dynamic-field.component.scss']
 })
 export class DynamicFieldComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() field!: FieldConfig;
@@ -51,14 +42,11 @@ export class DynamicFieldComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Don't create component here anymore
   }
 
   ngAfterViewInit(): void {
-    // Create component after view is initialized
     this.createFieldComponent();
     this.subscribeToValueChanges();
-    // Trigger change detection after creating component
     this.cdr.detectChanges();
   }
 
