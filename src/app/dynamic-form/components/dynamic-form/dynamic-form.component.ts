@@ -75,6 +75,7 @@ export class DynamicFormComponent {
     Object.keys(this.formGroup.controls).forEach(key => {
       const control = this.formGroup.get(key);
       control?.markAsTouched();
+      control?.updateValueAndValidity();
     });
   }
 
