@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-import { FieldConfig } from '../../models/field-config.interface';
+import { FieldConfig, FormFieldConfig, FieldGroup } from '../../models/field-config.interface';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -9,7 +9,7 @@ import { FieldConfig } from '../../models/field-config.interface';
   styleUrls: ['./dynamic-form.component.scss']
 })
 export class DynamicFormComponent {
-  @Input() fields: FieldConfig[] = [];
+  @Input() fields: FormFieldConfig[] = [];
   @Input() initialValues: any = {};
   @Input() submitButtonText: string = 'Submit';
   @Input() resetButtonText: string = 'Reset';
@@ -37,17 +37,31 @@ export class DynamicFormComponent {
   private createForm(): void {
     const group: any = {};
 
-    this.fields.forEach(field => {
-      const value = this.initialValues[field.key] ?? field.value ?? null;
-      const validators = field.validators || [];
-
-      group[field.key] = new FormControl(
-        { value, disabled: field.disabled || false },
-        validators
-      );
+    this.fields.forEach(item => {
+      if (this.isFieldGroup(item)) {
+        // Process fields in group
+        item.fields.forEach((field: any) => {
+          this.addFieldToGroup(group, field);
+        });
+      } else {
+        // Process regular field
+        this.addFieldToGroup(group, item);
+      }
     });
 
     this.formGroup = this.fb.group(group);
+  }
+
+  private addFieldToGroup(group: any, field: FieldConfig): void {
+    const value = this.initialValues[field.key] ?? field.value ?? null;
+    const validators = field.validators || [];
+    const asyncValidators = field.asyncValidators || [];
+
+    group[field.key] = new FormControl(
+      { value, disabled: field.disabled || false },
+      validators,
+      asyncValidators
+    );
   }
 
   private subscribeToFormChanges(): void {
@@ -97,5 +111,13 @@ export class DynamicFormComponent {
     } else {
       this.formGroup.reset();
     }
+  }
+
+  isFieldGroup(field: FormFieldConfig): field is FieldGroup {
+    return (field as FieldGroup).type === 'group';
+  }
+
+  isField(field: FormFieldConfig): field is FieldConfig {
+    return !this.isFieldGroup(field);
   }
 }

@@ -1,19 +1,40 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="dynamic-form">
   <div class="form-grid">
-    <app-dynamic-field
-      *ngFor="let field of fields"
-      [field]="field"
-      [formGroup]="formGroup"
-    ></app-dynamic-field>
+    <ng-container *ngFor="let item of fields">
+      <!-- Regular Field -->
+      <app-dynamic-field
+        *ngIf="isField(item)"
+        [field]="item"
+        [formGroup]="formGroup"
+        [class]="item.className"
+      ></app-dynamic-field>
+
+      <!-- Field Group -->
+      <div
+        *ngIf="isFieldGroup(item)"
+        class="field-group"
+      >
+        <label *ngIf="item.label" class="group-label">{{ item.label }}</label>
+        <div [class]="'group-fields ' + (item.className || '')">
+          <app-dynamic-field
+            *ngFor="let field of item.fields"
+            [field]="field"
+            [formGroup]="formGroup"
+            [class]="field.className"
+          ></app-dynamic-field>
+        </div>
+      </div>
+    </ng-container>
   </div>
-  
+
   <div class="form-actions">
     <p-button
       type="submit"
       [label]="submitButtonText"
       icon="pi pi-check"
+      [disabled]="!formGroup.valid"
     ></p-button>
-    
+
     <p-button
       *ngIf="showResetButton"
       type="button"

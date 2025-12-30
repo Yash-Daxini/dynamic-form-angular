@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FieldConfig } from '../dynamic-form/models/field-config.interface';
+import { FieldConfig, FormFieldConfig } from '../dynamic-form/models/field-config.interface';
 import { Validators } from '@angular/forms';
 import { FieldType } from '../dynamic-form/models/field-type.enum';
 
@@ -11,32 +11,39 @@ import { FieldType } from '../dynamic-form/models/field-type.enum';
 export class DemoComponent {
   submittedData: any = null;
 
-  formFields: FieldConfig[] = [
+  formFields: FormFieldConfig[] = [
     {
-      type: FieldType.INPUT,
-      key: 'firstName',
-      label: 'First Name',
-      placeholder: 'Enter your first name',
-      required: true,
-      validators: [Validators.required, Validators.minLength(2)],
-      validationMessages: {
-        required: 'First name is required',
-        minlength: 'First name must be at least 2 characters'
-      },
-      containerClass: 'col-12 md:col-6'
-    },
-    {
-      type: FieldType.INPUT,
-      key: 'lastName',
-      label: 'Last Name',
-      placeholder: 'Enter your last name',
-      required: true,
-      validators: [Validators.required, Validators.minLength(2)],
-      validationMessages: {
-        required: 'Last name is required',
-        minlength: 'Last name must be at least 2 characters'
-      },
-      containerClass: 'col-12 md:col-6'
+      type: 'group',
+      key: 'personalInfo',
+      className: 'row',
+      fields: [
+        {
+          type: FieldType.INPUT,
+          key: 'firstName',
+          label: 'First Name',
+          placeholder: 'Enter your first name',
+          required: true,
+          validators: [Validators.required, Validators.minLength(2)],
+          validationMessages: {
+            required: 'First name is required',
+            minlength: 'First name must be at least 2 characters'
+          },
+          className: 'col-6'
+        },
+        {
+          type: FieldType.INPUT,
+          key: 'lastName',
+          label: 'Last Name',
+          placeholder: 'Enter your last name',
+          required: true,
+          validators: [Validators.required, Validators.minLength(2)],
+          validationMessages: {
+            required: 'Last name is required',
+            minlength: 'Last name must be at least 2 characters'
+          },
+          className: 'col-6'
+        }
+      ]
     },
     {
       type: FieldType.EMAIL,
@@ -123,7 +130,7 @@ export class DemoComponent {
       label: 'PAN Card Number',
       placeholder: 'Enter your PAN Card Number',
       required: false,
-      validators: [Validators.required,Validators.pattern(/[A-Z]{5}[0-9]{4}[A-Z]{1}/)],
+      validators: [Validators.required, Validators.pattern(/[A-Z]{5}[0-9]{4}[A-Z]{1}/)],
       validationMessages: {
         required: 'PAN Card Number is required',
         pattern: 'Invalid PAN Card Number format'
